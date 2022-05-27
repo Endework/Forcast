@@ -16,12 +16,12 @@ from sklearn.metrics import mean_squared_error ,mean_absolute_error, r2_score
 from sklearn.linear_model import ElasticNet
 
 
-path1 =".. Data\trainfinal.csv"
-Path2=".. Data\testfinal.csv"
+path1 ="Data\\trainfinal.csv"
+Path2=".. Data\\testfinal.csv"
 
 repo="C:/Users/ende/Desktop/test"
 version1='v2'
-version2=v4
+version2='v4'
 data_url1=dvc.api.get_url(path=path1,
 repo=repo,rev=version1)
 data_url2=dvc.api.get_ur2(path=path2,
