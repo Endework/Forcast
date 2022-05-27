@@ -16,11 +16,16 @@ from sklearn.metrics import mean_squared_error ,mean_absolute_error, r2_score
 from sklearn.linear_model import ElasticNet
 
 
-path ="datas/AdSmart_AB_testing_data.csv"
-repo="C:/Users/ende/Desktop/abtest-mlops"
-version='v2'
-data_url=dvc.api.get_url(path=path,
-repo=repo,rev=version)
+path1 =".. Data\trainfinal.csv"
+Path2=".. Data\testfinal.csv"
+
+repo="C:/Users/ende/Desktop/test"
+version1='v2'
+version2=v4
+data_url1=dvc.api.get_url(path=path1,
+repo=repo,rev=version1)
+data_url2=dvc.api.get_ur2(path=path2,
+repo=repo,rev=version2)
 mlflow.set_experiment('expt')
 
 def eval_metrics(actual,pred):
@@ -38,17 +43,23 @@ if __name__=="__main__":
     warnings.filterwarnings("ignore")
     np.random.seed(40)
     
-    data=pd.read_csv(data_url,sep=",")
-    mlflow.log_param('data_version',version)
-    mlflow.log_param('data_url',data_url)
-    mlflow.log_param('input_rows',data.shape[0])
-    mlflow.log_param('input_cols',data.shape[1])
+    data1=pd.read_csv(data_url1,sep=",")
+    data2=pd.read_csv(data_url2,sep=",")
+    mlflow.log_param('data_version',version1)
+    mlflow.log_param('data_url',data_url1)
+    mlflow.log_param('input_rows',data1.shape[0])
+    mlflow.log_param('input_cols',data1.shape[1])
 
-    train,test=train_test_split(data)
-    train_x=train.drop(['aware'],axis=1)
-    test_x=train(["aware"],axis=1)
-    train_y=train[['aware']]
-    test_y=test[["aware"]]
+    mlflow.log_param('data_version',version2)
+    mlflow.log_param('data_url',data_url2)
+    mlflow.log_param('input_rows',data2.shape[0])
+    mlflow.log_param('input_cols',data2.shape[1])
+
+    #train,test=train_test_split(data)
+    train_x=data1.drop(['Sales'],axis=1)
+    test_x=data2(["Sales"],axis=1)
+    train_y=data1[['Sales']]
+    test_y=data2[["Sales"]]
 
 
     cols_x=pd.DataFrame(list(train_x.columns))
