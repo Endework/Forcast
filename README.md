@@ -8,7 +8,7 @@ The data team identified factors such as promotions, competition, school and sta
 Your job is to build and serve an end-to-end product that delivers this prediction to analysts in the finance team. 
 Learning Outcomes
 ### Skills:
-Advanced use of scikit-learn 
+# .Advanced use of scikit-learn 
 Feature Engineering
 ML Model building and fine-tuning
 CI/CD deployment of ML models  
