@@ -14,18 +14,20 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error ,mean_absolute_error, r2_score
 from sklearn.linear_model import ElasticNet
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join('../scripts')))
 
+path2 ="dvcdata\\trainfinal.csv"
+Path1="dvcdata\\testfinal.csv"
 
-path1 ="Data\\trainfinal.csv"
-Path2=".. Data\\testfinal.csv"
-
-repo="C:/Users/ende/Desktop/test"
-version1='v2'
-version2='v4'
-data_url1=dvc.api.get_url(path=path1,
-repo=repo,rev=version1)
-data_url2=dvc.api.get_ur2(path=path2,
-repo=repo,rev=version2)
+repo= ' /Users\ende\Desktop\\test'
+#v6=testdata
+#v7=traindata
+version1='v6'
+version2='v7'
+data_url1=dvc.api.get_url(path=Path1,repo=repo,rev=version1)
+data_url2=dvc.api.get_ur2(path=path2,repo=repo,rev=version2)
 mlflow.set_experiment('expt')
 
 def eval_metrics(actual,pred):
@@ -43,23 +45,23 @@ if __name__=="__main__":
     warnings.filterwarnings("ignore")
     np.random.seed(40)
     
-    data1=pd.read_csv(data_url1,sep=",")
-    data2=pd.read_csv(data_url2,sep=",")
-    mlflow.log_param('data_version',version1)
-    mlflow.log_param('data_url',data_url1)
-    mlflow.log_param('input_rows',data1.shape[0])
-    mlflow.log_param('input_cols',data1.shape[1])
-
+    train=pd.read_csv(data_url2,sep=",")
+    
     mlflow.log_param('data_version',version2)
     mlflow.log_param('data_url',data_url2)
-    mlflow.log_param('input_rows',data2.shape[0])
-    mlflow.log_param('input_cols',data2.shape[1])
+    mlflow.log_param('input_rows',train.shape[0])
+    mlflow.log_param('input_cols',train.shape[1])
+    test=pd.read_csv(data_url1,sep=",")
+    mlflow.log_param('data_version',version1)
+    mlflow.log_param('data_url',data_url1)
+    mlflow.log_param('input_rows',test.shape[0])
+    mlflow.log_param('input_cols',test.shape[1])
 
     #train,test=train_test_split(data)
-    train_x=data1.drop(['Sales'],axis=1)
-    test_x=data2(["Sales"],axis=1)
-    train_y=data1[['Sales']]
-    test_y=data2[["Sales"]]
+    train_x=train.drop(['Sales'],axis=1)
+    test_x=test(["Sales"],axis=1)
+    train_y=train[['Sales']]
+    test_y=test[["Sales"]]
 
 
     cols_x=pd.DataFrame(list(train_x.columns))
@@ -68,7 +70,7 @@ if __name__=="__main__":
 
 
     cols_y=pd.DataFrame(list(train_y.columns))
-    cols_x.to_csv('targer.csv',header=False,index=False)
+    cols_x.to_csv('target.csv',header=False,index=False)
     mlflow.log_artifacts('target.csv')
 
 

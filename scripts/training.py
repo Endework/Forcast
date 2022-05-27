@@ -1,7 +1,5 @@
-#This script is modified from the mlflow github repo file -> train.py 
+#
 
-# P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis.
-# Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.
 
 import os
 import warnings
@@ -25,17 +23,22 @@ logger = logging.getLogger(__name__)
 # Get url from DVC
 import dvc.api
 
-path = 'data/AdSmartABdata.csv'
-# repo ='https://github.com/heavye/abtest-mlops'
-repo ='C:/Users/euelf/Desktop/10_AC_CHALLENGES/Week_2/AB_Hypothesis_Testing/abtest-mlops'
-version = 'version4'
-
-data_url = dvc.api.get_url(
-    path = path,
+path2 = r"C:\Users\ende\Desktop\test\Data\\testfinal.csv"
+path1 = r"C:\Users\ende\Desktop\test\Data\\trainfinal.csv"
+repo ='https://github.com/Endework/Forcast'
+version1 = 'v7'
+version2= 'v6'
+data_url2 = dvc.api.get_url(
+    path = path2,
     repo = repo,
-    rev = version
+    rev = version2
 )
 
+data_url1 = dvc.api.get_url(
+    path = path1,
+    repo = repo,
+    rev = version1
+)
 mlflow.set_experiment('new')
 
 def eval_metrics(actual, pred):
@@ -49,18 +52,19 @@ if __name__ == "__main__":
     np.random.seed(40)
 
     # Read the AdSmartABdata csv file from remote repositery
-    data = pd.read_csv(data_url, sep=",")
+    test = pd.read_csv(data_url2, sep=",")
+    train = pd.read_csv(data_url1, sep=",")
 
     
 
     # Split the data into training and test sets. (0.75, 0.25) split
-    train, test = train_test_split(data)
+    #train, test = train_test_split(data)
 
     # The predicted column is "quality" which is a scalar from [3, 9]
-    train_x = train.drop(["awareness"], axis=1)
-    test_x = test.drop(["awareness"], axis=1)
-    train_y = train[["awareness"]]
-    test_y = test[["awareness"]]
+    train_x = train.drop(["Sales"], axis=1)
+    test_x = test.drop(["Sales"], axis=1)
+    train_y = train[["Sales"]]
+    test_y = test[["Sales"]]
 
     
 
@@ -88,10 +92,16 @@ if __name__ == "__main__":
         mlflow.log_metric("mae", mae)
 
         #Log data params
-        mlflow.log_param('data_url', data_url)
-        mlflow.log_param('data_version', version)
-        mlflow.log_param('input_rows', data.shape[0])
-        mlflow.log_param('input_cols', data.shape[1])
+        mlflow.log_param('data_url', data_url1)
+        mlflow.log_param('data_version', version1)
+        mlflow.log_param('input_rows', train.shape[0])
+        mlflow.log_param('input_cols', train.shape[1])
+
+
+        mlflow.log_param('data_url', data_url2)
+        mlflow.log_param('data_version', version2)
+        mlflow.log_param('input_rows', test.shape[0])
+        mlflow.log_param('input_cols', test.shape[1])
 
         #Log artifacts: columns used for modeling
         cols_x = pd.DataFrame(list(train_x.columns))
