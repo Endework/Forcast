@@ -26,7 +26,7 @@ class DecisionTreesModel:
         self.y_train = y_train
         self.y_test = y_test
         
-        self.clf = DecisionTreeClassifier(max_depth=4)
+        self.clf = DecisionTreeClassifier(max_depth=2)
         
     def train(self, folds=1):
         
