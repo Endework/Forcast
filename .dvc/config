@@ -1,4 +1,4 @@
 [core]
-    remote = dvc-remote2
-['remote "dvc-remote2"']
-    url = C:/Users/ende/AppData/Local/Temp/dvc-storage
+    remote = storage
+['remote "storage"']
+    url = gdrive://14eEQWN6TjMRpAcnr8JtyN7pdzzYU7LNL
