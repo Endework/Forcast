@@ -17,15 +17,17 @@ from sklearn.linear_model import ElasticNet
 import os
 import sys
 sys.path.append(os.path.abspath(os.path.join('../scripts')))
+warnings.filterwarnings("ignore")  # avoid printing out absolute paths
 
-path2 ="dvcdata\\trainfinal.csv"
-Path1="dvcdata\\testfinal.csv"
+os.chdir("../../..")
+path2 =r'C:\Users\ende\Desktop\test\data\\trainfinal.csv'
+Path1=r'C:\Users\ende\Desktop\test\data\\trainfinal.csv'
 
-repo= ' /Users\ende\Desktop\\test'
+repo= r"C:/Users/ende/Desktop/test"
 #v6=testdata
 #v7=traindata
-version1='v6'
-version2='v7'
+version1='v10'
+version2='v11'
 data_url1=dvc.api.get_url(path=Path1,repo=repo,rev=version1)
 data_url2=dvc.api.get_ur2(path=path2,repo=repo,rev=version2)
 mlflow.set_experiment('expt')

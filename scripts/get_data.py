@@ -11,7 +11,7 @@ X, y = make_classification(n_samples = 1000, random_state=seed)
 X_train, X_test, y_train, y_test = train_test_split(X,y, random_state=seed)
 
 # Save it
-if not os.path.isdir("Data"):
+if not os.path.isdir("data"):
     os.mkdir("defaultdata")
 np.savetxt("defaultdata/train.csv",X_train)
 np.savetxt("defaultdata/test.csv",X_test)
