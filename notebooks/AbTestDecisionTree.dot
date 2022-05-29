@@ -1,0 +1,6 @@
+digraph Tree {
+node [shape=box, style="filled, rounded", color="black", fontname=helvetica] ;
+edge [fontname=helvetica] ;
+0 [label=<DayOfWeek &le; 6.5<br/>gini = 0.95<br/>samples = 45<br/>value = [8, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1<br/>1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1<br/>1, 1, 1, 1, 1, 1, 1, 1, 1, 1]<br/>class = Aware>, fillcolor="#fbebe0"] ;
+1 [label=<DayOfWeek &le; 1.5<br/>gini = 0.973<br/>samples = 37<br/>value = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1<br/>1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1<br/>1, 1, 1, 1, 1, 1, 1, 1, 1, 1]<br/>class = Not Aware>, fillcolor="#ffffff"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
