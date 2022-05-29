@@ -1,4 +1,4 @@
 [core]
-    remote = storage
-['remote "storage"']
-    url = gdrive://14eEQWN6TjMRpAcnr8JtyN7pdzzYU7LNL
+    remote = storeage
+['remote "storeage"']
+    url = C:/Users/ende/Desktop/important
